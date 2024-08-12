@@ -1,3 +1,7 @@
+using API.Context;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+
 namespace API
 {
     public class Program
@@ -15,6 +19,16 @@ namespace API
                         policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
                     }
                 );
+            });
+
+            IConfiguration Configuration = builder.Configuration;
+
+            string connectionString = Configuration.GetConnectionString("DefaultConnection")
+                                      ?? Environment.GetEnvironmentVariable("DefaultConnection");
+
+            builder.Services.AddDbContext<AppDBContext>(options =>
+                {
+                options.UseNpgsql(connectionString);
             });
             // Add services to the container.
 
