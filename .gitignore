@@ -1,5 +1,4 @@
-
-/API/.vs
-/API/obj
-/API/bin
+/*/.vs
+/*/obj
+/*/bin
 .vscode
